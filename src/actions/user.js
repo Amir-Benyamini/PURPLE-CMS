@@ -7,8 +7,9 @@ const loadUser = async () => {
   store.userStore.setUser(user);
 };
 
-const updateUser = async (id, update) => {
-  const response = await api.updateUser(id, update);
+const updateUser = async (id, update, files) => {
+  if (files?.length > 0) api.updateUserImage(id, files[0]);
+  const response = await api.updateUser(id, update, files);
   const user = await response.json();
   store.userStore.setUser(user);
 };

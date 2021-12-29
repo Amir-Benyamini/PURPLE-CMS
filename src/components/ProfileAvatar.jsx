@@ -8,7 +8,7 @@ export const ProfileAvatar = observer((props) => {
   return (
     <div className="avatar-card">
       <Card sectioned>
-        <Avatar source={`${dummyProfile.image}`} name={`${store.user.name}`} />
+        <Avatar source={`${store.user.imageUrl}`} name={`${store.user.name}`} />
         <Heading element="h4">
           <TextStyle variation="strong">{store.user.name}</TextStyle>
         </Heading>

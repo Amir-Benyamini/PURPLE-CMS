@@ -1,14 +1,5 @@
 const User = require("./userSchema");
-
-// const data = {
-//   name: "Amir Benyamini",
-//   title: "Developer",
-//   company: "PURPLE",
-//   phone: "+972505545521",
-//   email: "benyamini.amir@gmail.com",
-//   about:
-//     "Etiam id pharetra justo. Mauris sodales purus vel nunc egestas mattis. Done!",
-// };
+const fs = require("fs");
 
 const createUser = async (req, res) => {
   const data = req.body.user;
@@ -34,9 +25,21 @@ const updateUser = async (req, res) => {
   res.send(updatedUser);
 };
 
+const updateUserImage = async (req, res) => {
+  const id = req.params.id;
+  const imageFile = req.files.userImage;
+  if (imageFile) {
+    fs.writeFileSync(`./assets/${imageFile.name}`, imageFile.data);
+    await User.findByIdAndUpdate(id, {
+      image: imageFile.name,
+    });
+  }
+};
+
 module.exports = {
   readUser,
   readUsers,
   updateUser,
+  updateUserImage,
   createUser,
 };

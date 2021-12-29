@@ -22,14 +22,19 @@ export const ProfileCMS = (props) => {
     about: "",
     phone: "",
   });
+  
   const [phoneErrorMessage, setPhoneErrorMessage] = useState(undefined);
+  const [files, setFiles] = useState([]);
+  const [rejectedFiles, setRejectedFiles] = useState([]);
   const { title, company, about, phone } = values;
   const userId = props.store.user._id;
+
   const updateInput = (value, name) => {
     const updatedValues = { ...values };
     updatedValues[name] = value;
     setValues(updatedValues);
   };
+
   const updateFilter = (valObj) => {
     let updateObj = { ...valObj };
     const keys = Object.keys(updateObj);
@@ -40,13 +45,21 @@ export const ProfileCMS = (props) => {
     });
     return updateObj;
   };
+  
   const handleSubmit = () => {
     const update = updateFilter(values);
-    userActions.updateUser(userId, update);
+    userActions.updateUser(userId, update, files);
     setValues({ title: "", company: "", about: "", phone: "" });
   };
-  const [files, setFiles] = useState([]);
-  const [rejectedFiles, setRejectedFiles] = useState([]);
+
+  const validatePhoneNumber = (value) => {
+    const isPhoneValid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+      value
+    );
+
+    setPhoneErrorMessage(!isPhoneValid && "Phone is not valid");
+  };
+
   const hasError = rejectedFiles.length > 0;
 
   const handleDrop = useCallback(
@@ -56,14 +69,6 @@ export const ProfileCMS = (props) => {
     },
     []
   );
-
-  const validatePhoneNumber = (value) => {
-    const isPhoneValid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
-      value
-    );
-
-    setPhoneErrorMessage(!isPhoneValid && "Phone is not valid");
-  };
 
   const fileUpload = !files.length && <DropZone.FileUpload />;
   const uploadedFiles = files.length > 0 && (

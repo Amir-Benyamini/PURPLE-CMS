@@ -1,8 +1,11 @@
 import React from "react";
 import { Avatar } from "@shopify/polaris";
-import { dummyProfile } from "../servises/dummy";
 import { Link } from "react-router-dom";
-export function Navbar() {
+import { observer } from "mobx-react";
+import { toJS } from "mobx";
+
+export const Navbar = observer((props) => {
+  const store = toJS(props.store);
   return (
     <div id="nav">
       <img
@@ -11,7 +14,7 @@ export function Navbar() {
       />
       <Link to="/">Pofile Page</Link>
       <Link to="/cms">Edit Profile Page</Link>
-      <Avatar source={`${dummyProfile.image}`} name={`${dummyProfile.name}`} />
+      <Avatar source={`${store.user.imageUrl}`} name={`${store.user.name}`} />
     </div>
   );
-}
+});

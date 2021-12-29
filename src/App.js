@@ -11,7 +11,7 @@ function App(props) {
 
   return (
     <div>
-      <Navbar />
+      <Navbar store={props.store} />
       <Routes>
         <Route path="/" element={<ProfileScreen store={props.store} />} />
         <Route path="/cms" element={<ProfileCMS store={props.store} />} />

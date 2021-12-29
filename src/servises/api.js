@@ -1,3 +1,5 @@
+const baseUrl = "http://localhost:4000";
+
 class API {
   async fetchUser() {
     const options = {
@@ -8,7 +10,7 @@ class API {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    const response = await fetch(`http://localhost:4000/user`, options);
+    const response = await fetch(`${baseUrl}/user`, options);
     return response;
   }
 
@@ -24,10 +26,21 @@ class API {
         update,
       }),
     };
-    const response = await fetch(
-      `http://localhost:4000/user/update/${id}`,
-      options
-    );
+    const response = await fetch(`${baseUrl}/user/update/${id}`, options);
+    return response;
+  }
+
+  async updateUserImage(id, imageFile) {
+    const data = new FormData();
+    data.append("userImage", imageFile);
+    const options = {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: data,
+    };
+    const response = await fetch(`${baseUrl}/user/updateImage/${id}`, options);
     return response;
   }
 }

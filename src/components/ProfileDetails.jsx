@@ -12,23 +12,23 @@ export const ProfileDetails = observer((props) => {
           <TextStyle variation="strong">User Profile</TextStyle>
         </Subheading>
 
-        <TextField label="Job Title" value={store.user.title} disabled="true" />
+        <TextField label="Job Title" value={store.user.title} disabled={true} />
         <TextField
           label="Current Company"
           value={store.user.company}
-          disabled="true"
+          disabled={true}
         />
         <TextField
           label="About Myself"
           value={store.user.about}
-          disabled="true"
+          disabled={true}
           multiline={5}
         />
         <TextField
           className="phone-input"
           label="Phone Number"
           value={`${store.user.phone}`}
-          disabled="true"
+          disabled={true}
         />
       </FormLayout>
     </div>
